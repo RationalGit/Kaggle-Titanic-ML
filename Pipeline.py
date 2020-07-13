@@ -25,7 +25,7 @@ def get_score(n_estimators, cv_folds = 3):
 	('model', RandomForestRegressor(n_estimators = n_estimators,
 									random_state = 0))
 	])
-	# Multiply by -1 since sklearn calculates a negative MAE
+	# Multiply by -1 as sklearn calculates a negative MAE
 	scores = -1 * cross_val_score(my_pipeline, X, y,
 								 cv = cv_folds,
 								 scoring = 'neg_mean_absolute_error')
@@ -126,7 +126,7 @@ class CategoricalTransformer(BaseEstimator, TransformerMixin):
         except:
             return 0
                         
-    #Transformer method we wrote for this transformer 
+    #Transformer method for this transformer 
     def transform(self, X , y = None):
         #Depending on constructor argument add num_cabins
         #using the helper functions written above 
@@ -135,7 +135,7 @@ class CategoricalTransformer(BaseEstimator, TransformerMixin):
         #returns numpy array
         return X.values 
 
-# Custom transformer we wrote to engineer features (create an 'Is_alone'
+# Custom transformer to engineer features (create an 'Is_alone'
 # column if SibSp & Parch are both 0
 # passed as boolen arguements to its constructor
 class NumericalTransformer(BaseEstimator, TransformerMixin):
@@ -147,7 +147,7 @@ class NumericalTransformer(BaseEstimator, TransformerMixin):
     def fit( self, X, y = None ):
         return self 
     
-    #Custom transform method we wrote that creates aformentioned features and drops redundant ones 
+    #Custom transform method that creates aformentioned features and drops redundant ones 
     def transform(self, X, y = None):
         X.loc[:,'Is_alone'] = np.where((X['SibSp'] == 0) & (X['Parch'] == 0), 1, 0)
         return X.values
